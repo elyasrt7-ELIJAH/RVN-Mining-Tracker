@@ -1,22 +1,15 @@
-# ==========================================================
-# RVN Mining Tracker
-#
-# Copyright (c) 2026 ElijahLab
-#
-# Author: ElijahLab
-#
-# ==========================================================
-
-# RVN_Mining_Tracker_v1.0.0 (local estimate only - pool lookup removed, OK/FAIL/temperature colorization)
+# RVN_Mining_Tracker v1.6.0 (local estimate only - pool lookup removed, OK/FAIL/temperature colorization)
 import os,sys,csv,time,re,threading,subprocess,traceback,signal,atexit
 from datetime import datetime,timedelta
 
-TREX="t-rex.exe";POOL="stratum+tcp://stratum.ravenminer.com:3838";WALLET="YOUR_RVN_WALLET.Worker1";ALGO="kawpow"
+TREX="t-rex.exe";POOL="stratum+tcp://stratum.ravenminer.com:3838"
+# NOTE: This is a TEST wallet address for demonstration purposes only.
+# Replace it with your own RVN wallet address before mining for real.
+WALLET="RMiEA9wNM5Bc3vrmqjxAKPxFa1B29mVYmW.test";ALGO="kawpow"
 CSV="Mining_History.csv";TMP="Session.tmp";LOG="Error_Log.txt"
 miner=None;start_time=None;running=False;cleanup_done=False
 hash_sum=0.0;hash_count=0   # running total for current session's average hashrate
 
-INITIAL_COINS=0       # coins already earned before tracking started (set manually if you're migrating existing progress)
 COIN_RATE=0.5         # RVN awarded per hour of mining (used as a fallback estimate only, since the pool no longer responds)
 HASH_RE=re.compile(r'(\d+\.\d+\s*MH/s)')
 HASHVAL_RE=re.compile(r'(\d+\.\d+)\s*MH/s')
@@ -142,7 +135,7 @@ def show_stats():
                 if year_start<=d<=today: year_tot+=dur
         month_avg=month_tot/MONTH_D
         year_avg=year_tot/YEAR_D
-        total_coins=INITIAL_COINS+coins_tot
+        total_coins=coins_tot
         print(f"\n{BOLD}{CYAN}Last run:  {now.strftime('%Y-%m-%d %H:%M:%S')}{RESET}")
         print("=== Mining Stats ===")
         print(f"First mine:  {first_date.strftime('%Y-%m-%d') if first_date else '-'}")
@@ -152,7 +145,7 @@ def show_stats():
         print(f"{YELLOW}7-day total: {fmt_hm(week_tot)}{RESET}")
         print(f"{RED}Month avg:   {fmt_hm(month_avg)}/day ({MONTH_D}d){RESET}")
         print(f"Year avg:    {fmt_hm(year_avg)}/day ({YEAR_D}d)")
-        print(f"{YELLOW}Est. coins:  {total_coins:.2f} RVN (base {INITIAL_COINS} + {COIN_RATE}/h){RESET}")
+        print(f"{YELLOW}Est. coins:  {total_coins:.2f} RVN ({COIN_RATE}/h){RESET}")
         if hash_count>0:
             print(f"{BLUE}Avg hashrate (session): {hash_sum/hash_count:.2f} MH/s{RESET}")
         print("=====================")
