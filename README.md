@@ -1,16 +1,16 @@
 # RVN Mining Tracker
-> ## Ready-to-use package
->
-> The ZIP file included in the latest Release is a complete, ready-to-use package.
->
-> Simply:
->
-> 1. Download the ZIP file from the Releases page.
-> 2. Extract it to any folder.
-> 3. Read the README for the wallet configuration.
-> 4. Double-click `RVN_Mining_Tracker.py` (or `start_rvn3838.bat`) to start mining.
->
-> No additional downloads or files are required.
+> ## 🚀 Ready-to-use package
+
+**The ZIP file included in the latest Release is a complete, ready-to-use package.**
+
+### Quick Start
+
+1. Download the ZIP file from the **Releases** page.
+2. Extract it to any folder.
+3. Read the **README** for wallet configuration.
+4. Double-click **RVN_Mining_Tracker.py** (or **start_rvn3838.bat**) to start mining.
+
+**✅ No additional downloads or files are required for the released package.**
 
 A lightweight Python wrapper around [T-Rex Miner](https://github.com/trexminer/T-Rex) for mining Ravencoin (RVN). It launches the miner for you, colorizes its console output (hashrate, uptime, OK/FAIL, temperature), tracks every mining session in a local CSV log, and prints a running stats summary (today / 7-day / month / year totals plus an estimated coin total) every time it starts and stops.
 
