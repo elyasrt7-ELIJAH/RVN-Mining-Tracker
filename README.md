@@ -26,9 +26,20 @@ A lightweight Python wrapper around [T-Rex Miner](https://github.com/trexminer/T
 - **CSV History** — every session is logged to `Mining_History.csv`, so you keep your own full mining history
 - **Estimated Coin Counter** — a running estimate of RVN earned, based on a configurable RVN/hour rate
 - **Average Session Hashrate** — a live running average shown both in the console and in the window title bar
+## Real Hardware Test
 
+This project was tested during real Ravencoin mining.
+
+Hardware:
+- GPU: NVIDIA RTX 4050 Laptop GPU 6GB
+- Miner: T-Rex Miner v0.26.8
+- Algorithm: KawPow
+
+Results:
+- Hashrate: ~13.4 MH/s
+- Power: ~50W
+- Temperature: 58-62°C
 ## How it works
-
 `RVN_Mining_Tracker.py` is a thin wrapper: it starts `t-rex.exe` as a subprocess with the pool/wallet/algorithm configured at the top of the script, then reads and re-prints the miner's output line by line, adding colors and a running average hashrate. The moment it sees the miner report `"Mining at ..."`, it records a session start time. When the script exits — normally, via Ctrl+C, or because the window was closed — it records the session end time, appends a row to `Mining_History.csv` (date, start, end, duration, estimated coins), and prints an updated stats summary.
 
 Every 30 seconds while mining, the current session's progress is also written to `Session.tmp`. If the process is ever killed abruptly without a clean shutdown, that file lets the next run recover and save the lost session instead of discarding it.
